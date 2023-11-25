@@ -1,6 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 
+const PORT: Number = Number(process.env.SERVER_PORT || 3000);
 
 let server: Express = express();
 
@@ -15,8 +16,8 @@ server.use((req: Request, res: Response, next: NextFunction) => {
 
 export default {
   start () {
-    server.listen(3000, () => {
-      console.log('Server started!');
+    server.listen(PORT, () => {
+      console.log(`Server started on port ${PORT}!`);
     });
   }
 };
