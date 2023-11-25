@@ -46,7 +46,7 @@ router.get('/funcionario', funcionarioController.list);
 
 router.get('/funcionario/:id', validarSeExiste, funcionarioController.find);
 
-router.post('/funcionario/email/:id', validarSeExiste, FuncionarioController.enviarEmail);
+// router.post('/funcionario/email/:id', validarSeExiste, FuncionarioController.enviarEmail);
 
 router.post('/funcionario', validarPayload, funcionarioController.create);
 

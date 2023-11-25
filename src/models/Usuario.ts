@@ -11,7 +11,7 @@ export class Usuario extends BaseEntity {
    @Column()
    public email: string;
 
-   @Column()
+   @Column({ select: false })
    public senha: string;
 
    @Column({ type: "char", default: "A" })

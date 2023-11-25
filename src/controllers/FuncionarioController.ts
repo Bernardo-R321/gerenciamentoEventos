@@ -6,9 +6,11 @@ import * as nodemailer from "nodemailer";
 export class FuncionarioController {
 
     async list (req: Request, res: Response): Promise<Response> {
-        let funcionario: Funcionario[] = await Funcionario.find();
+      let funcinarios: Funcionario[] = await Funcionario.findBy({
+        situacao: 'A'
+      });
 
-        return res.status(200).json(funcionario);
+      return res.status(200).json(funcinarios);
     }
 
     async create (req: Request, res: Response): Promise<Response> {
@@ -20,16 +22,21 @@ export class FuncionarioController {
             senha: body.senha,
             cpf: body.cpf,
         }).save();
+
+        let { senha: s, ...funcionarioSemSenha } = funcionario;
     
-        return res.status(200).json(funcionario);
+        return res.status(200).json(funcionarioSemSenha);
     }
 
     async delete (req: Request, res: Response): Promise<Response> {
-        let funcionario: Funcionario = res.locals.funcionario;
-    
-        funcionario.remove();
-        
-        return res.status(200).json();
+      let funcionario: Funcionario = res.locals.funcionario;
+
+      funcionario.situacao = 'I';
+      await funcionario.save();
+      
+      let { senha: s, ...funcionarioSemSenha } = funcionario;
+  
+      return res.status(200).json(funcionarioSemSenha);
     }
 
     async find (req: Request, res: Response): Promise<Response> {
@@ -49,7 +56,9 @@ export class FuncionarioController {
         funcionario.cpf = body.cpf,
         await funcionario.save();
     
-        return res.status(200).json(funcionario);
+        let { senha: s, ...funcionarioSemSenha } = funcionario;
+
+        return res.status(200).json(funcionarioSemSenha);
     } 
 
     async enviarEmail(req: Request, res: Response): Promise<Response> {

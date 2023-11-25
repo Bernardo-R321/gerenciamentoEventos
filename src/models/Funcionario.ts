@@ -12,11 +12,14 @@ export class Funcionario extends BaseEntity {
    @Column()
    public email: string;
    
-   @Column()
+   @Column({ select: false })
    public senha: string;
 
    @Column()
    public cpf: number;
+
+   @Column({ type: "char", default: "A" })
+   public situacao: string;
 
  
 }
