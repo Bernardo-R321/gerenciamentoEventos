@@ -23,28 +23,33 @@ async function validarPayload(req: Request, res: Response, next: NextFunction): 
 
 async function validarSeExiste(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   const id = Number(req.params.id);
-  const descricao: Permissao | null = await Permissao.findOneBy({ id });
 
-  if (!descricao) {
-    return res.status(404).json({ error: 'Descrição não encontrado!' });
+  if (isNaN(id) || id <= 0) {
+    return res.status(400).json({ error: 'Id inválido ' + id });
   }
 
-  res.locals.descricao = descricao;
+  const permissao: Permissao | null = await Permissao.findOneBy({ id });
+
+  if (!permissao) {
+    return res.status(404).json({ error: 'Permissão não encontrado!' });
+  }
+
+  res.locals.permissao = permissao;
 
   return next();
 }
 
-const router: Router = Router();
-const pController: PermissaoController = new PermissaoController();
+let router: Router = Router();
+let pController: PermissaoController = new PermissaoController();
 
-router.get('/permissoes', pController.list);
+router.get('/permissao', pController.list);
 
-router.get('/permissoes/:id', validarSeExiste, pController.find);
+router.get('/permissao/:id', validarSeExiste, pController.find);
 
-router.post('/permissoes', validarPayload, pController.create);
+router.post('/permissao', validarPayload, pController.create);
 
-router.put('/permissoes/:id', validarSeExiste, validarPayload, pController.update);
+router.put('/permissao/:id', validarSeExiste, pController.update);
 
-router.delete('/permissoes/:id', validarSeExiste, pController.delete);
+router.delete('/permissao/:id',validarSeExiste, pController.delete);
 
 export default router;

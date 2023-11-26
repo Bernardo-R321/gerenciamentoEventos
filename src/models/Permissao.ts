@@ -7,4 +7,7 @@ export class Permissao extends BaseEntity {
 
   @Column()
   public descricao: string;
+
+  @Column({ type: "char", default: "A" })
+  public situacao: string;
 }

@@ -32,7 +32,7 @@ export class PermissaoController {
 
   async update(req: Request, res: Response): Promise<Response> {
     let body = req.body;
-    let permissao: Permissao = res.locals.usuario;
+    let permissao: Permissao = res.locals.permissao;
 
     permissao.descricao = body.descricao;
     await permissao.save();
@@ -41,10 +41,11 @@ export class PermissaoController {
   }
 
   async delete(req: Request, res: Response): Promise<Response> {
-    let permissao: Permissao = res.locals.usuario;
+    let permissao: Permissao = res.locals.permissao;
 
-    permissao.remove();
+    permissao.situacao = "I";
+    permissao.save();
 
-    return res.status(200).json();
+    return res.status(200).json(permissao);
   }
 }
