@@ -26,17 +26,20 @@ export class InscricaoController {
     }
 
     async create(req: Request, res: Response): Promise<Response> {
-        let body = req.body
 
-        let evento = await Evento.findOneBy(body.evento);
-        let usuario = await Usuario.findOneBy(body.usuario);
+        let idEvento = req.body.evento;
+        let idUsuario = req.body.usuario;
+        console.log(idEvento);
+        let evento = await Evento.findOneBy({ id: idEvento });
+        let usuario = await Usuario.findOneBy({ id: idUsuario });
+        console.log(evento);
 
-        if (evento) {
+        if (evento == null) {
             return res.status(422).json({ error: 'Evento  não encontrado!' });
 
         }
 
-        if (usuario) {
+        if (usuario == null) {
             return res.status(422).json({ error: 'Usuário não encontrado!' });
         }
 
@@ -60,12 +63,12 @@ export class InscricaoController {
         let evento = await Evento.findOneBy(body.evento);
         let usuario = await Usuario.findOneBy(body.usuario);
 
-        if (evento) {
+        if (evento == null) {
             return res.status(422).json({ error: 'Evento  não encontrado!' });
 
         }
 
-        if (usuario) {
+        if (usuario == null) {
             return res.status(422).json({ error: 'Usuário não encontrado!' });
         }
 
