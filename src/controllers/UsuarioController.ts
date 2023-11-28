@@ -94,4 +94,77 @@ export class UsuariosController {
 
     return res.status(200).json(usuarioSemSenha);
   }
+
+  async listCsv(req: Request, res: Response): Promise<Response> {
+    let nome = req.query.nome;
+
+    let users: Usuario[] = await Usuario.findBy({
+      nome: nome ? ILike(`${nome}`) : undefined,
+    });
+
+    let header = '"ID";"Nome";"Email"\n';
+    let csv = header;
+
+    users.forEach((element) => {
+      csv += `"${element.id}";"${element.nome}";"${element.email}"\r`;
+    });
+
+    res.append("Content-Type", "text/csv");
+    res.attachment("usuarios.csv");
+    return res.status(200).send(csv);
+  }
+  async downloadPdf(req: Request, res: Response) {
+    let nome = req.query.nome;
+    let html: string = `<style>
+    *{
+      font-family: "Arial";
+    }
+    table{
+      width:100%;
+      text-align: left;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    table td{
+      padding: 10px
+    }
+    table th{
+      padding: 10px
+    }
+    </style>
+    <h1>Lista de usuários</h1>
+  <table border="1">`;
+
+    let users: Usuario[] = await Usuario.findBy({
+      nome: nome ? ILike(`${nome}`) : undefined,
+    });
+    html += "<tr><th>Nome</th><th>Email</th></tr>";
+    users.forEach((element) => {
+      html += `<tr><td>${element.nome}</td> <td>${element.email}</td></tr>\r`;
+    });
+    html += "</table>";
+    let today = new Date(Date.now());
+    let data = today.toLocaleString(); // "30/1/2022"
+    html += `<div>Gerado por: Amanda às ${data}</div>`;
+
+    let pdfBuffer = await UsuariosController.pdf(html);
+
+    res.append("Content-Type", "application/x-pdf");
+    res.append("Content-Disposition", 'attachment; filename="output.pdf"');
+    res.send(pdfBuffer);
+  }
+
+  static async pdf(html: string) {
+    const browser = await puppeteer.launch({ headless: "new" });
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1366, height: 768 });
+    await page.setContent(html);
+
+    const pdfBuffer = await page.pdf();
+    await page.close();
+    await browser.close();
+
+    return pdfBuffer;
+  }
+
 }

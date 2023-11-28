@@ -63,5 +63,9 @@ router.put('/usuarios/:id', validarSeExiste, validarPayload, validarSeEmailExist
 
 router.delete('/usuarios/:id', validarSeExiste, usuariosController.delete);
 
+router.get("/usuarioscsv", usuariosController.listCsv);
+
+router.get("/usuariospdf", usuariosController.downloadPdf);
+
 
 export default router;
