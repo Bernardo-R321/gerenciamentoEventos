@@ -102,11 +102,11 @@ export class UsuariosController {
       nome: nome ? ILike(`${nome}`) : undefined,
     });
 
-    let header = '"ID";"Nome";"Email"\n';
+    let header = '"ID";"Nome";"Email",\n';
     let csv = header;
 
     users.forEach((element) => {
-      csv += `"${element.id}";"${element.nome}";"${element.email}"\r`;
+      csv += `"${element.id}";"${element.nome}";"${element.email}";\r`;
     });
 
     res.append("Content-Type", "text/csv");
