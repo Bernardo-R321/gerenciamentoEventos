@@ -55,4 +55,8 @@ router.put('/evento/:id', validarSeExiste, eventoController.update);
 
 router.delete('/evento/:id', validarSeExiste, eventoController.delete);
 
+router.get("/usuarioscsv", eventoController.listCsv);
+
+router.get("/usuariospdf", eventoController.downloadPdf);
+
 export default router;
