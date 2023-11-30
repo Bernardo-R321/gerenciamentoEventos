@@ -100,4 +100,77 @@ export class InscricaoController {
             return res.status(422).json({ error: 'Inscrição não encontrada!' });
         }
     }
+    async listCsv(req: Request, res: Response): Promise<Response> {
+        let nome = req.query.nome;
+    
+        let users: Inscricao[] = await Inscricao.findBy({
+          evento: Inscricao ? ILike(`${Inscricao}`) : undefined,
+        });
+    
+        let header = '"Inscrição";"Evento","Descrição", "Usuario",\n';
+        let csv = header;
+    
+        users.forEach((element) => {
+          csv += `"${element.situacao}";"${element.confirmacao}";"${element.evento}";"${element.usuario}",\r`;
+        });
+    
+        res.append("Content-Type", "text/csv");
+        res.attachment("Inscricao.csv");
+        return res.status(200).send(csv);
+      }
+      async downloadPdf(req: Request, res: Response) {
+        let inscricao = req.query.inscricao;
+        let html: string = `<style>
+        *{
+          font-family: "Arial";
+        }
+        table{
+          width:100%;
+          text-align: left;
+          border-collapse: collapse;
+          margin-bottom: 10px;
+        }
+        table td{
+          padding: 10px
+        }
+        table th{
+          padding: 10px
+        }
+        </style>
+        <h1>Lista de usuários</h1>
+      <table border="1">`;
+    
+        let users: Inscricao[] = await Inscricao.findBy({
+          evento: inscricao? ILike(`${inscricao}`) : undefined,
+        });
+        html += "<tr><th>Nome</th><th>Email</th></tr>";
+        users.forEach((element) => {
+          html += `<tr><td>${element.situacao}</td> <td>${element.confirmacao}</td><td>${element.evento}</td><td>${element.usuario}</td></tr>\r`;
+        });
+        html += "</table>";
+        let today = new Date(Date.now());
+        let data = today.toLocaleString(); // "30/1/2022"
+        html += `<div>Gerado por: Amanda às ${data}</div>`;
+    
+        let pdfBuffer = await InscricaoController.pdf(html);
+    
+        res.append("Content-Type", "application/x-pdf");
+        res.append("Content-Disposition", 'attachment; filename="output.pdf"');
+        res.send(pdfBuffer);
+      }
+    
+      static async pdf(html: string) {
+        const browser = await puppeteer.launch({ headless: "new" });
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1366, height: 768 });
+        await page.setContent(html);
+    
+        const pdfBuffer = await page.pdf();
+        await page.close();
+        await browser.close();
+    
+        return pdfBuffer;
+      }
+    
+    
 }

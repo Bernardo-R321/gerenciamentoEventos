@@ -74,25 +74,25 @@ export class EventoController {
         }
     }
     async listCsv(req: Request, res: Response): Promise<Response> {
-        let nome = req.query.nome;
+        let evento = req.query.evento;
     
-        let users: Controller[] = await Controller.findBy({
-          nome: nome ? ILike(`${nome}`) : undefined,
+        let users: Evento[] = await Evento.findBy({
+          data_evento: evento ? ILike(`${evento}`) : undefined,
         });
     
         let header = '"Nome";"Descrição","Data","Cidade","Situação",\n';
         let csv = header;
     
         users.forEach((element) => {
-          csv += `"${element.nome}";"${element.Descrição}";"${element.Data}";"${element.Cidade}";"${element.Situacao}",\r`;
+          csv += `"${element.nome}";"${element.descricao}";"${element.data_evento}";"${element.cidade}";"${element.situacao}",\r`;
         });
     
         res.append("Content-Type", "text/csv");
-        res.attachment("usuarios.csv");
+        res.attachment("evento.csv");
         return res.status(200).send(csv);
       }
       async downloadPdf(req: Request, res: Response) {
-        let nome = req.query.nome;
+        let evento = req.query.evento;
         let html: string = `<style>
         *{
           font-family: "Arial";
@@ -114,7 +114,7 @@ export class EventoController {
       <table border="1">`;
     
         let users: Evento[] = await Evento.findBy({
-          nome: nome ? ILike(`${nome}`) : undefined,
+          data_evento: evento ? ILike(`${evento}`) : undefined,
         });
         html += "<tr><th>Nome</th><th>Email</th></tr>";
         users.forEach((element) => {
