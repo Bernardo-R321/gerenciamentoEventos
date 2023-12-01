@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { Evento } from '../models/Evento';
 import { ILike } from 'typeorm';
 import * as puppeteer from "puppeteer";
-import { Controller } from 'react-hook-form';
 
 
 export class EventoController {
