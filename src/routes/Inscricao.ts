@@ -43,8 +43,6 @@ router.get('/inscricao', inscricaoController.list);
 
 router.get('/inscricao/:id', validarSeExiste, inscricaoController.find);
 
-// router.post('/funcionario/email/:id', validarSeExiste, FuncionarioController.enviarEmail);
-
 router.post('/inscricao', inscricaoController.create);
 
 router.put('/inscricao/:id', validarSeExiste, inscricaoController.update);

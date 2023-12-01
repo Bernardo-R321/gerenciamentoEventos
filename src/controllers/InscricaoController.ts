@@ -4,6 +4,7 @@ import { ILike } from 'typeorm';
 import * as puppeteer from "puppeteer";
 import { Usuario } from '../models/Usuario';
 import { Evento } from '../models/Evento';
+import nodemailer from 'nodemailer';
 
 
 export class InscricaoController {
@@ -48,6 +49,23 @@ export class InscricaoController {
                 evento,
                 usuario,
             }).save();
+
+            const transporter = nodemailer.createTransport({
+              host: "sandbox.smtp.mailtrap.io",
+              port: 2525,
+              auth: {
+                user: "e6761e1c8a4deb",
+                pass: "f51e7191a56a99"
+              }
+            
+            });
+    
+            await transporter.sendMail({
+              from: '"Gestor de eventos" <eventoscrie.ti@gmail.com>',
+              to: `"${usuario.nome}" <${usuario.email}>`,
+              subject: "Sua inscrição foi realizada!",
+              text: "Sua inscrição para o evento: " + evento.nome + " foi realizada com sucesso!"
+            });
 
             return res.status(200).json(inscricao);
         }
