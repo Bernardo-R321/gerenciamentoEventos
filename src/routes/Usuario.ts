@@ -59,6 +59,8 @@ router.get('/usuarios/:id', validarSeExiste, usuariosController.find);
 
 router.post('/usuarios', validarPayload, validarSeEmailExiste, usuariosController.create);
 
+router.post('/usuarios/login', usuariosController.login);
+
 router.put('/usuarios/:id', validarSeExiste, validarPayload, validarSeEmailExiste, usuariosController.update);
 
 router.delete('/usuarios/:id', validarSeExiste, usuariosController.delete);

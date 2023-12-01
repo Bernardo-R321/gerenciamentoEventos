@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: rgb(0, 0, 0);
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+}
+
+#formulario {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 40rem;
+  margin-right: 40rem;
+  margin-top: 80px;
+  padding: 80px;
+  background-color: lightgrey;
+  border-radius: 10px;
+}
