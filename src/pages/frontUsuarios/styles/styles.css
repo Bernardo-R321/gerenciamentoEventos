@@ -81,19 +81,25 @@ table td:last-child {
   cursor: pointer;
   text-decoration: none;
   margin: 12px;
+  &:hover {
+    background-color: #0056b3; 
+  }
 }
 
 .red {
   background-color: rgb(192, 0, 0);
   margin-left: 16px;
+  &:hover {
+    background-color: rgb(151, 9, 9);
+  }
+
 }
 
 .darkblue {
   background-color: #1900ff;
-}
-
-.button:hover {
-  background-color: #0056b3; 
+  &:hover {
+    background-color: #1604bb;
+  }
 }
 
 @media (max-width: 576px) {

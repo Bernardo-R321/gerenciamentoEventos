@@ -5,7 +5,7 @@ let inputNome = document.getElementById("nome");
 let inputEmail = document.getElementById("email");
 let inputSenha = document.getElementById("senha");
 let form = document.getElementById("formulario");
-let butao = document.getElementsByClassName("button");
+let botoes = document.getElementsByClassName("button");
 
 async function buscarDados() {
   let resposta = await fetch("http://localhost:3000/usuarios/" + id);
@@ -67,7 +67,3 @@ form.addEventListener("submit", async (event) => {
     alert("Ops! Algo deu errado!");
   }
 });
-
-butao.addEventListener('click', () => {
-  window.location.href = '../ListScreen/index.html'
-})
