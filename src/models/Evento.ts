@@ -12,7 +12,7 @@ export class Evento extends BaseEntity {
     @Column()
     public descricao: string;
 
-    @Column({ type: 'timestamp without time zone' })
+    @Column({ type: 'date' })
     public data_evento: String;
 
     @CreateDateColumn()

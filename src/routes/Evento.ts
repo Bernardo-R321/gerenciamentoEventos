@@ -9,7 +9,7 @@ async function validarPayload(req: Request, res: Response, next: NextFunction): 
         descricao: yup.string().min(3).max(255).required(),
         cidade: yup.string().min(6).max(16).required(),
         situacao: yup.string().min(1).max(1).required(),
-        data: yup.string()
+        data_evento: yup.string()
     });
 
     let payload = req.body;
