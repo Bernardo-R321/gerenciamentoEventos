@@ -37,15 +37,14 @@ let form = document.getElementById("formulario");
 form.addEventListener("submit", async (event) => {
   event.stopPropagation();
   event.preventDefault();
-
-  let confirmacao = window.confirm(`Tem certeza que deseja deletar o usuário?`);
   
-  if (!confirmacao) {
-    return; 
-  }
-
   let nome = inputNome.value;
   let email = inputEmail.value;
+
+  let payload = {
+    nome,
+    email,
+  };
 
   let url = `http://localhost:3000/usuarios/${id}`;
   let method = "DELETE";
@@ -57,6 +56,7 @@ form.addEventListener("submit", async (event) => {
         "Content-type": "application/json",
         Accept: "application/json",
       },
+      body: JSON.stringify(payload),
     });
 
     if (resposta.ok) {
