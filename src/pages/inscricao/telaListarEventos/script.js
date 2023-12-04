@@ -28,9 +28,7 @@ async function buscarEventos() {
     tdDataEvento.innerText = evento.data_evento;
     tdCidade.innerText = evento.cidade;
     tdAcoes.innerHTML = `
-      <a class="button darkblue" href="../telaCriar-Editar/index.html?id=${evento.id}">Editar</a>
-      <button class="button red" onClick="excluir(${evento.id})">Excluir</button>
-    `;
+      <a class="button darkblue" href="../telaConfirmarInscricao/index.html?id=${evento.id}">Inscrever-se</a>`;
 
     tr.appendChild(tdId);
     tr.appendChild(tdNome);
@@ -42,19 +40,6 @@ async function buscarEventos() {
     corpoTabela.appendChild(tr);
   }
   estiloDaLista();
-}
-
-async function excluir(id) {
-  let confirma = confirm(
-    'Deseja excluir esse evento? Esta ação não pode ser revertida.'
-  );
-  if (confirma) {
-    await fetch('http://localhost:3000/evento/' + id, {
-      method: 'DELETE',
-    });
-
-    window.location.reload();
-  }
 }
 
 buscarEventos();
