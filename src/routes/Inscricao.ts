@@ -53,6 +53,8 @@ router.post('/encontrarInscricao', inscricaoController.encontrarInscricao);
 
 router.post('/confirmarInscricao/:idInscricao', inscricaoController.confirmarInscricao);
 
+router.get('/inscricaoPorEvento/:id', inscricaoController.listarInscricoesEvento);
+
 
 export default router;
 
