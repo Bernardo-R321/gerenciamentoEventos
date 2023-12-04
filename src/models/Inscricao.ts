@@ -11,14 +11,18 @@ export class Inscricao extends BaseEntity {
     public data_criacao: Date;
 
     @Column({ type: 'char', default: 'N' })
-    public confirmacao: String
+    public confirmacao: string
 
     @Column({ type: "char", default: "A" })
     public situacao: string;
 
-    @ManyToOne(() => Usuario, usuario => usuario.inscricoes)
+    @ManyToOne(() => Usuario, usuario => usuario.inscricoes, {
+        eager: true
+    })
     public usuario: Usuario;
 
-    @ManyToOne(() => Evento, evento => evento.inscricoes)
+    @ManyToOne(() => Evento, evento => evento.inscricoes, {
+        eager: true
+    })
     public evento: Evento;
 }

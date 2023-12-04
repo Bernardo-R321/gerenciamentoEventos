@@ -49,4 +49,10 @@ router.put('/inscricao/:id', validarSeExiste, inscricaoController.update);
 
 router.delete('/inscricao/:id', validarSeExiste, inscricaoController.delete);
 
+router.post('/encontrarInscricao', inscricaoController.encontrarInscricao);
+
+router.post('/confirmarInscricao/:idInscricao', inscricaoController.confirmarInscricao);
+
+
 export default router;
+
