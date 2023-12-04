@@ -233,4 +233,20 @@ export class InscricaoController {
 
   }
 
+  async listarInscricoesEvento(req: Request, res: Response) {
+    let idEvento = Number(req.params.id)
+    let resposta = await Inscricao.find({
+      relations: {
+        evento: true
+      },
+      where: {
+        evento: {
+          id: idEvento
+        }
+      }
+    })
+
+    return res.status(200).json(resposta);
+  }
+
 }
