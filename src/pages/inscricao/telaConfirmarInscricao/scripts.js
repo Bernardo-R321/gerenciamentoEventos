@@ -11,7 +11,7 @@ let form = document.getElementById('formulario');
 let botao = document.getElementsByClassName('button');
 
 async function buscarDados() {
-  let resposta = await fetch('http://localhost:3000/evento/' + id);
+  let resposta = await fetch('http://177.44.248.46:3000/evento/' + id);
 
   if (resposta.ok) {
     let evento = await resposta.json();
@@ -40,7 +40,7 @@ form.addEventListener('submit', async (event) => {
     idUsuario: usuarioLogado,
   };
 
-  let resposta = await fetch('http://localhost:3000/inscricao', {
+  let resposta = await fetch('http://177.44.248.46:3000/inscricao', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',

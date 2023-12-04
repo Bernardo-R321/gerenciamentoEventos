@@ -9,7 +9,7 @@ let form = document.getElementById('formulario');
 let botao = document.getElementsByClassName('button');
 
 async function buscarDados() {
-  let resposta = await fetch('http://localhost:3000/evento/' + id);
+  let resposta = await fetch('http://177.44.248.46:3000/evento/' + id);
 
   if (resposta.ok) {
     let evento = await resposta.json();
@@ -46,7 +46,7 @@ form.addEventListener('submit', async (event) => {
     situacao: 'A',
   };
 
-  let url = 'http://localhost:3000/evento';
+  let url = 'http://177.44.248.46:3000/evento';
   let method = 'POST';
   if (id) {
     url += '/' + id;

@@ -10,7 +10,7 @@ if (!id || isNaN(id)) {
 
 async function buscarDados() {
   try {
-    let resposta = await fetch(`http://localhost:3000/usuarios/${id}`);
+    let resposta = await fetch(`http://177.44.248.46:3000/usuarios/${id}`);
     if (resposta.ok) {
       let usuario = await resposta.json();
       inputNome.value = usuario.nome;
@@ -46,7 +46,7 @@ form.addEventListener("submit", async (event) => {
     email,
   };
 
-  let url = `http://localhost:3000/usuarios/${id}`;
+  let url = `http://177.44.248.46:3000/usuarios/${id}`;
   let method = "DELETE";
 
   try {

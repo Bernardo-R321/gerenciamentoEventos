@@ -4,7 +4,7 @@ let buttonPesquisar = document.getElementById('botaoPesquisar');
 let corpoTabela = document.getElementById('corpo-tabela');
 
 async function buscarEventos() {
-  let resposta = await fetch('http://localhost:3000/evento');
+  let resposta = await fetch('http://177.44.248.46:3000/evento');
   let eventos = await resposta.json();
 
   for (let evento of eventos) {
@@ -21,7 +21,7 @@ buttonPesquisar.addEventListener('click', async () => {
     email: inputEmail.value,
   };
   console.log(payload);
-  let resposta = await fetch('http://localhost:3000/encontrarInscricao', {
+  let resposta = await fetch('http://177.44.248.46:3000/encontrarInscricao', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -69,7 +69,7 @@ function estiloDaLista() {
 }
 
 async function confirmar(id) {
-  let resposta = await fetch('http://localhost:3000/confirmarInscricao/' + id, {
+  let resposta = await fetch('http://177.44.248.46:3000/confirmarInscricao/' + id, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

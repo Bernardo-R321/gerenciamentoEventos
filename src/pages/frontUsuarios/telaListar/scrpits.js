@@ -9,7 +9,7 @@ function estiloDaLista() {
 }
 
 async function buscarUsuarios() {
-  let resposta = await fetch("http://localhost:3000/usuarios");
+  let resposta = await fetch("http://177.44.248.46:3000/usuarios");
   let usuarios = await resposta.json();
 
   if (usuarios.length > 0) {

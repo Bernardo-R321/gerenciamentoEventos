@@ -9,7 +9,7 @@ function estiloDaLista() {
 }
 
 async function buscarInscricoes() {
-  let resposta = await fetch('http://localhost:3000/inscricao');
+  let resposta = await fetch('http://177.44.248.46:3000/inscricao');
   let inscricoes = await resposta.json();
   console.log(inscricoes);
 
@@ -46,7 +46,7 @@ async function excluir(id) {
     'Deseja cancelar essa inscricao? Esta ação não pode ser revertida.'
   );
   if (confirma) {
-    await fetch('http://localhost:3000/inscricao/' + id, {
+    await fetch('http://177.44.248.46:3000/inscricao/' + id, {
       method: 'DELETE',
     });
 

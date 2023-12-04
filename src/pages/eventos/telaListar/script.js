@@ -9,7 +9,7 @@ function estiloDaLista() {
 }
 
 async function buscarEventos() {
-  let resposta = await fetch('http://localhost:3000/evento');
+  let resposta = await fetch('http://177.44.248.46:3000/evento');
   let eventos = await resposta.json();
   console.log(eventos);
 
@@ -49,7 +49,7 @@ async function excluir(id) {
     'Deseja excluir esse evento? Esta ação não pode ser revertida.'
   );
   if (confirma) {
-    await fetch('http://localhost:3000/evento/' + id, {
+    await fetch('http://177.44.248.46/evento/' + id, {
       method: 'DELETE',
     });
 
