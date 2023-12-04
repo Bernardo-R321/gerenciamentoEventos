@@ -8,7 +8,7 @@ let form = document.getElementById("formulario");
 let botoes = document.getElementsByClassName("button");
 
 async function buscarDados() {
-  let resposta = await fetch("http://177.44.248.46/:3000/usuarios/" + id);
+  let resposta = await fetch("http://177.44.248.46:3000/usuarios/" + id);
 
   if (resposta.ok) {
     let usuario = await resposta.json();
